@@ -1,0 +1,36 @@
+#include "FastLED.h"
+
+#define DATA_PIN D3
+#define NUM_LEDS 8 
+CRGB leds[NUM_LEDS];
+
+//Brighten method
+void brighten() {
+  for(int i = 0; i < 255; i++) {
+    FastLED.setBrightness(i); 
+    FastLED.show(); 
+    delay(30000/255);
+  }
+
+  FastLED.setBrightness(50);
+  FastLED.show();
+  delay(2000);
+}
+
+void setup() {
+  Serial.begin(9600); 
+
+
+  FastLED.addLeds<WS2811, DATA_PIN, GRB>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
+  FastLED.setBrightness(50); 
+  FastLED.setMaxPowerInVoltsAndMilliamps(5, 400);
+
+  for(int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = Dark Orange;
+    FastLED.show();
+  }
+
+}
+
+void loop() {
+  brighten();
